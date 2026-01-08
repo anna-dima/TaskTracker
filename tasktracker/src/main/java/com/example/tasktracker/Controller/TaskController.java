@@ -6,7 +6,6 @@ import com.example.tasktracker.Service.TaskService;
 import com.example.tasktracker.DTO.TaskGetDTO;
 import com.example.tasktracker.Exceptions.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,21 +23,24 @@ public class TaskController {
     private TaskService taskService;
 
     //Get all tasks
+    //1/8/2026 Get Mapping working to fetch all tasks
     @GetMapping("/tasks")
     public List<TaskGetDTO> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     //Get task by ID
+    //1/8/26 Get Mapping working to fetch task by ID
     @GetMapping("/tasks/{id}")
-    public ResponseEntity<Task> getTaskByID(@PathVariable Integer id) {
-        Task task = taskService.getTaskByID(id)
+    public ResponseEntity<TaskGetDTO> getTaskByID(@PathVariable Integer id) {
+        TaskGetDTO dto = taskService.getTaskByID(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id " + id));
-        return ResponseEntity.ok(task);
+        return ResponseEntity.ok(dto);
     }
     
 
     //Add task to the database
+    //1/8/2026 Post Mapping working to add a task
     @PostMapping("/tasks")
     public ResponseEntity<Task> addTask(@RequestBody Task task) {
         Task saved = taskService.addTask(task);
@@ -61,7 +63,7 @@ public class TaskController {
 
     //Get task by Priority 
     @GetMapping("/tasks/priority/{priority}")
-    public List<Task> getTasksByPriority(@PathVariable Task.Priority priority) {
+    public List<TaskGetDTO> getTasksByPriority(@PathVariable Task.Priority priority) {
         return taskService.getTasksByPriority(priority);
     }
 

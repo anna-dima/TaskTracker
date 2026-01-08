@@ -15,4 +15,7 @@ public interface TaskRepo extends JpaRepository<Task, Integer> {
 	// Find tasks by due date (search by the DueDate.date field)
 	List<Task> findByDueDate_Date(LocalDate dueDate);
 
+	// Find tasks by priority
+	List<Task> findByPriority(Task.Priority priority);
+
 }

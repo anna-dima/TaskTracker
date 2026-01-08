@@ -42,8 +42,8 @@ public class TaskService {
     }
 
     //Method to find a task by ID
-    public Optional<Task> getTaskByID(Integer id) {
-        return taskRepo.findById(id);
+    public Optional<TaskGetDTO> getTaskByID(Integer id) {
+        return taskRepo.findById(id).map(TaskMapper::toTaskGetDTO);
     }
 
     //Method to update a task
@@ -66,16 +66,20 @@ public class TaskService {
     }
 
     //Method to get task by Priority 
-    public List<Task> getTasksByPriority(Task.Priority priority) {
-        return taskRepo.findAll().stream()
-                .filter(task -> task.getPriority() == priority)
+    public List<TaskGetDTO> getTasksByPriority(Task.Priority priority) {
+        List<TaskGetDTO> tasks = taskRepo.findByPriority(priority).stream()
+                .map(TaskMapper::toTaskGetDTO)
                 .toList();
+        if (tasks.isEmpty()) {
+            throw new ResourceNotFoundException("No tasks found with priority " + priority);
+        }
+        return tasks;
     }
 
     //Method to get task by due date
-    public List<Task> getTasksByDueDate(LocalDate dueDate) {
-        return taskRepo.findByDueDate_Date(dueDate);
-    }
+    //public List<TaskGetDTO> getTasksByDueDate(LocalDate dueDate) {
+      //  return taskRepo.findByDueDate_Date(dueDate);
+    //}
 
     
 
