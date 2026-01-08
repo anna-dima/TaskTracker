@@ -1,0 +1,5 @@
+Plan sprint,Define tasks for next sprint,HIGH,false,2026-01-15,1
+Write tests,Add unit tests for TaskService,MEDIUM,false,2025-12-05,1
+Refactor API,Clean up controller signatures,LOW,true,2025-11-20,2
+Fix bug #123,Resolve null pointer in TaskService,HIGH,false,,2
+Data migration,Migrate legacy due dates,MEDIUM,false,2026-02-01,
