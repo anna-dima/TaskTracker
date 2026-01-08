@@ -66,6 +66,8 @@ public class TaskService {
     }
 
     //Method to get task by Priority 
+    //1/8/2026 Service method working to fetch task by Priority using DTO
+    //Updated to throw ResourceNotFoundException if no tasks found
     public List<TaskGetDTO> getTasksByPriority(Task.Priority priority) {
         List<TaskGetDTO> tasks = taskRepo.findByPriority(priority).stream()
                 .map(TaskMapper::toTaskGetDTO)
@@ -84,7 +86,13 @@ public class TaskService {
     
 
     //Method to get tasks for a specific project
-    public List<Task> getTasksByProject(Integer projectId) {
-        return taskRepo.findByProjectId(projectId);
+    public List<TaskGetDTO> getTasksByProject(Integer projectId) {
+        List<TaskGetDTO> tasks = taskRepo.findByProjectId(projectId).stream()
+                .map(TaskMapper::toTaskGetDTO)
+                .toList();
+        if (tasks.isEmpty()) {
+            throw new ResourceNotFoundException("No tasks found for project " + projectId);
+        }
+        return tasks;
     }
 }

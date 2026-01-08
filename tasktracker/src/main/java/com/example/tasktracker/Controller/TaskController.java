@@ -62,6 +62,7 @@ public class TaskController {
     }
 
     //Get task by Priority 
+    //1/8/2026 Get Mapping working to fetch task by Priority using DTO
     @GetMapping("/tasks/priority/{priority}")
     public List<TaskGetDTO> getTasksByPriority(@PathVariable Task.Priority priority) {
         return taskService.getTasksByPriority(priority);
@@ -70,7 +71,7 @@ public class TaskController {
 
     //Get all tasks for a specific project
     @GetMapping("/projects/{projectId}/tasks")
-    public List<Task> getTasksByProject(@PathVariable Integer projectId) {
+    public List<TaskGetDTO> getTasksByProject(@PathVariable Integer projectId) {
         return taskService.getTasksByProject(projectId);
     }
     
