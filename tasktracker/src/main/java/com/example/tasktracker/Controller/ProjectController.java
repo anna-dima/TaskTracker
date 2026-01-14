@@ -16,11 +16,13 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
     //Get all projects
+    //1/14/26 Get all projects working correctly
     @GetMapping("/projects")
     public java.util.List<Project> getAllProjects() {
         return projectService.getAllProjects();
     }
     //Get project by ID
+    //1/14/26 Get project by ID working correctly
     @GetMapping("/projects/{id}")
     public ResponseEntity<Project> getProjectByID(@PathVariable Integer id) {
         Project project = projectService.getProjectByID(id)
@@ -28,6 +30,7 @@ public class ProjectController {
         return ResponseEntity.ok(project);
     }
     //Add project to the database
+    //1/14/26 Create projects working correctly 
     @PostMapping("/projects")
     public ResponseEntity<Project> addProject(@RequestBody Project project) {
         Project saved = projectService.addProject(project);

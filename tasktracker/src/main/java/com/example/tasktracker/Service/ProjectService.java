@@ -46,8 +46,12 @@ public class ProjectService {
         Project project = projectRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project not found with id " + id));
 
-        project.setTitle(projectDetails.getTitle());
-        project.setDescription(projectDetails.getDescription());
+        if (projectDetails.getTitle() != null) {
+            project.setTitle(projectDetails.getTitle());
+        }
+        if (projectDetails.getDescription() != null) {
+            project.setDescription(projectDetails.getDescription());
+        }
 
         return projectRepo.save(project);
     }

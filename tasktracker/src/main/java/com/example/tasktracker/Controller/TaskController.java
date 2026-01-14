@@ -23,14 +23,14 @@ public class TaskController {
     private TaskService taskService;
 
     //Get all tasks
-    //1/8/2026 Get Mapping working to fetch all tasks
+    //1/8/2026 Get Mapping working to fetch all tasks with DTO
     @GetMapping("/tasks")
     public List<TaskGetDTO> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     //Get task by ID
-    //1/8/26 Get Mapping working to fetch task by ID
+    //1/8/26 Get Mapping working to fetch task by ID with DTO 
     @GetMapping("/tasks/{id}")
     public ResponseEntity<TaskGetDTO> getTaskByID(@PathVariable Integer id) {
         TaskGetDTO dto = taskService.getTaskByID(id)
@@ -48,6 +48,7 @@ public class TaskController {
     }
 
     //Updates task in the database
+    //To Do: Test Put Mapping
     @PutMapping("/tasks/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Integer id, @RequestBody Task taskDetails) {
         Task updatedTask = taskService.updateTask(id, taskDetails);
@@ -55,6 +56,7 @@ public class TaskController {
     }
 
     //Deletes task from the database
+    //To Do: Test Delete Mapping
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
@@ -70,6 +72,7 @@ public class TaskController {
 
 
     //Get all tasks for a specific project
+    //To Do: Test Get Mapping for tasks by project
     @GetMapping("/projects/{projectId}/tasks")
     public List<TaskGetDTO> getTasksByProject(@PathVariable Integer projectId) {
         return taskService.getTasksByProject(projectId);

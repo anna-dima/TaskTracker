@@ -30,7 +30,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Priority priority;
     //default the completed as false
-    private boolean completed = false;
+    private Boolean completed = false;
 
     //Many tasks can belong to one due date
     //but not must have a due date
@@ -39,7 +39,7 @@ public class Task {
     private DueDate dueDate;
 
     //Many tasks can belong to one project
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id")
     private Project project;
     

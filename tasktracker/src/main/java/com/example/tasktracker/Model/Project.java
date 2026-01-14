@@ -1,10 +1,10 @@
 package com.example.tasktracker.Model;
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /*
  * Model class for Project entity.
@@ -24,7 +24,7 @@ public class Project {
     private String title;
     private String description;
     //One project can have many tasks
-    @OneToMany
-    @JoinColumn(name = "task_id")
+    @OneToMany(mappedBy = "project")
+    @JsonIgnore
     private List<Task> tasks;
 }

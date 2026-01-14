@@ -10,6 +10,9 @@ import com.example.tasktracker.Mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +25,9 @@ import java.time.LocalDate;
 @Service
 public class TaskService {
     private final TaskRepo taskRepo;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     public TaskService(TaskRepo taskRepo) {
@@ -38,7 +44,9 @@ public class TaskService {
 
     //Method to add a new task
     public Task addTask(Task task) {
-        return taskRepo.save(task);
+        Task saved = taskRepo.save(task);
+        em.clear();
+        return taskRepo.findById(saved.getId()).get();
     }
 
     //Method to find a task by ID
@@ -51,9 +59,24 @@ public class TaskService {
         Task task = taskRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id " + id));
 
-        task.setTitle(taskDetails.getTitle());
-        task.setDescription(taskDetails.getDescription());
-        task.setCompleted(taskDetails.isCompleted());
+        if (taskDetails.getTitle() != null) {
+            task.setTitle(taskDetails.getTitle());
+        }
+        if (taskDetails.getDescription() != null) {
+            task.setDescription(taskDetails.getDescription());
+        }
+        if (taskDetails.getPriority() != null) {
+            task.setPriority(taskDetails.getPriority());
+        }
+        if (taskDetails.getCompleted() != null) {
+            task.setCompleted(taskDetails.getCompleted());
+        }
+        if (taskDetails.getDueDate() != null) {
+            task.setDueDate(taskDetails.getDueDate());
+        }
+        if (taskDetails.getProject() != null) {
+            task.setProject(taskDetails.getProject());
+        }
 
         return taskRepo.save(task);
     }
