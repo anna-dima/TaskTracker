@@ -9,7 +9,7 @@ public class TaskMapper {
         dto.setTitle(task.getTitle());
         dto.setDescription(task.getDescription());
         dto.setPriority(task.getPriority().toString());
-        dto.setCompleted(task.isCompleted());
+        dto.setCompleted(task.getCompleted());
         return dto;
     }
 }

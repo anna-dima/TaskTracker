@@ -78,7 +78,9 @@ public class TaskService {
             task.setProject(taskDetails.getProject());
         }
 
-        return taskRepo.save(task);
+        Task saved = taskRepo.save(task);
+        em.clear();
+        return taskRepo.findById(saved.getId()).get();
     }
 
     //Method to delete a task
@@ -102,11 +104,15 @@ public class TaskService {
     }
 
     //Method to get task by due date
-    //public List<TaskGetDTO> getTasksByDueDate(LocalDate dueDate) {
-      //  return taskRepo.findByDueDate_Date(dueDate);
-    //}
-
-    
+    public List<TaskGetDTO> getTasksByDueDate(LocalDate dueDate) {
+        List<TaskGetDTO> tasks = taskRepo.findByDueDate_Date(dueDate).stream()
+                .map(TaskMapper::toTaskGetDTO)
+                .toList();
+        if (tasks.isEmpty()) {
+            throw new ResourceNotFoundException("No tasks found with due date " + dueDate);
+    }
+        return tasks;
+    }
 
     //Method to get tasks for a specific project
     public List<TaskGetDTO> getTasksByProject(Integer projectId) {

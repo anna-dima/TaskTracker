@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -56,7 +57,7 @@ public class TaskController {
     }
 
     //Deletes task from the database
-    //To Do: Test Delete Mapping
+    //1/15/26 Delete Mapping working to delete a task
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
@@ -70,9 +71,15 @@ public class TaskController {
         return taskService.getTasksByPriority(priority);
     }
 
+    //Get task by Due Date
+    //1/15/26 Get Mapping working to fetch tasks by Due Date using DTO
+    @GetMapping("/tasks/duedate/{date}")
+    public List<TaskGetDTO> getTasksByDueDate(@PathVariable LocalDate date) {
+        return taskService.getTasksByDueDate(date);
+    }
 
     //Get all tasks for a specific project
-    //To Do: Test Get Mapping for tasks by project
+    //1/15/26 Get Mapping working to fetch tasks by Project ID using DTO
     @GetMapping("/projects/{projectId}/tasks")
     public List<TaskGetDTO> getTasksByProject(@PathVariable Integer projectId) {
         return taskService.getTasksByProject(projectId);

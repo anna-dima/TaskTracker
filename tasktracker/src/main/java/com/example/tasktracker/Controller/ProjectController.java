@@ -37,12 +37,14 @@ public class ProjectController {
         return ResponseEntity.status(201).body(saved);
     }
     //Updates project in the database
+    //1/14/26 Update project working correctly
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Integer id, @RequestBody Project projectDetails) {
         Project updatedProject = projectService.updateProject(id, projectDetails);
         return ResponseEntity.ok(updatedProject);
     }
     //Deletes project from the database
+    //1/14/26 Delete project working correctly
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
         projectService.deleteProject(id);
