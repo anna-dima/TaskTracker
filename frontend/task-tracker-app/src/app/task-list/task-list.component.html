@@ -1,0 +1,7 @@
+<ul>
+    <li *ngFor="let task of tasks">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <p>Status: {{ task.completed ? 'Completed' : 'Pending' }}</p>
+    </li>
+</ul>
