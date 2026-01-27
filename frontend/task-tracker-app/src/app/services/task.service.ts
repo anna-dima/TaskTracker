@@ -15,4 +15,10 @@ export class TaskService {
     // Implementation to fetch tasks from the backend API
     return this.http.get<Task[]>(this.apiUrl);
   }
+
+  // Update a task
+  updateTask(taskId: number, updates: Partial<Task>): Observable<Task> {
+    // Implementation to update a task in the backend API
+    return this.http.put<Task>(`${this.apiUrl}/${taskId}`, updates);
+  }
 }

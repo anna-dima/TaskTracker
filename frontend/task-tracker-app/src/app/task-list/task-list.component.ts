@@ -23,4 +23,22 @@ export class TaskListComponent implements OnInit {
       error: (error) => console.error('Error fetching tasks:', error)
     });
   }
+
+  completeTask(taskId: number): void {
+    this.taskService.updateTask(taskId, { completed: true }).subscribe({
+      next: (updatedTask) => {
+        const index = this.tasks.findIndex(t => t.id === taskId);
+        if (index !== -1) {
+          this.tasks[index] = updatedTask;
+        }
+      },
+      error: (error) => console.error('Error completing task:', error)
+    });
+  }
+
+  onTaskAction(task: Task): void {
+    if (task.id !== undefined) {
+      this.completeTask(task.id);
+    }
+  }
 }
