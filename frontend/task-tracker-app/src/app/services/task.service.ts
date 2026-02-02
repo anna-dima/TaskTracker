@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Task} from '../models/taks';
+import {Task} from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,16 @@ export class TaskService {
   getTasks(): Observable<Task[]> {
     // Implementation to fetch tasks from the backend API
     return this.http.get<Task[]>(this.apiUrl);
+  }
+
+  // Fetch tasks by project
+  getTasksByProject(projectId: number): Observable<Task[]> {
+    return this.http.get<Task[]>(`http://localhost:8080/api/projects/${projectId}/tasks`);
+  }
+
+  // Fetch tasks by due date
+  getTasksByDate(date: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.apiUrl}/duedate/${date}`);
   }
 
   // Update a task

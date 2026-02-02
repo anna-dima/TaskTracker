@@ -1,0 +1,40 @@
+.project-item {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width: 50%;
+}
+.project-item:hover {
+    background-color: #f0f0f0;
+}
+
+.project-item.selected {
+    background-color: #36353531;
+}
+
+.project-item.selected .project-name {
+    color: black;
+}
+
+.separator {
+    height: 1px;
+    background-color: #3498db;
+    margin: 15px 0;
+    width: 60%;
+}
+
+.project-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    text-align: left;
+}
+
+.project-button:focus {
+    outline: none;
+}

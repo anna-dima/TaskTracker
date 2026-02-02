@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProjectController {
     @Autowired
     private ProjectService projectService;

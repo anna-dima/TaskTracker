@@ -5,6 +5,15 @@
   justify-content: center;
 }
 
+.task-list-header {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #3498db;
+}
+
 .task-item {
   display: grid;
   grid-template-columns: auto 1fr;

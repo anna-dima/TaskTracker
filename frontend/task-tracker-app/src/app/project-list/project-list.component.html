@@ -1,0 +1,14 @@
+<div class="project-list">
+  <div class="project-item" [class.selected]="isSelected('all')">
+    <button class="project-button" (click)="onAllTasksAction()">
+    <span class="project-name">All Tasks</span></button>
+  </div>
+  <div class="project-item" [class.selected]="isSelected('today')">
+    <button class="project-button" (click)="onMyDayAction()">
+    <span class="project-name">My Day</span></button>
+  </div>
+  <div class="separator"></div>
+  <div *ngFor="let project of projects" class="project-item" [class.selected]="isSelected(project.id!)">
+    <button class="project-button" (click)="onProjectAction(project)">
+    <span class="project-name">{{ project.title }}</span></button>
+  </div>

@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 //Import the service
 import { TaskService } from '../services/task.service';
 //Import the Task model
-import { Task } from '../models/taks';
+import { Task } from '../models/task';
+//Import the Task filter service
+import { TaskFilterService } from '../services/task-filter.service';
 
 @Component({
   selector: 'app-task-list',
@@ -14,14 +16,39 @@ import { Task } from '../models/taks';
 export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
+  filterName: string = 'All Tasks';
 
-  constructor(private taskService: TaskService) { }
+  constructor(
+    private taskService: TaskService,
+    private taskFilterService: TaskFilterService
+  ) { }
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe({
-      next: (data) => this.tasks = data,
-      error: (error) => console.error('Error fetching tasks:', error)
+    // Subscribe to filter changes
+    this.taskFilterService.filter$.subscribe(filter => {
+      this.filterName = filter.name;
+      this.loadTasks(filter);
     });
+  }
+
+  loadTasks(filter: any): void {
+    if (filter.type === 'all') {
+      this.taskService.getTasks().subscribe({
+        next: (data) => this.tasks = data,
+        error: (error) => console.error('Error fetching tasks:', error)
+      });
+    } else if (filter.type === 'project' && filter.projectId) {
+      this.taskService.getTasksByProject(filter.projectId).subscribe({
+        next: (data) => this.tasks = data,
+        error: (error) => console.error('Error fetching project tasks:', error)
+      });
+    } else if (filter.type === 'today') {
+      const today = new Date().toISOString().split('T')[0];
+      this.taskService.getTasksByDate(today).subscribe({
+        next: (data) => this.tasks = data,
+        error: (error) => console.error('Error fetching today tasks:', error)
+      });
+    }
   }
 
   completeTask(taskId: number): void {

@@ -1,4 +1,5 @@
 <div class="task-list">
+  <h2 class="task-list-header">{{ filterName }}</h2>
   <div *ngFor="let task of tasks" class="task-item">
     <button class="task-button" (click)="onTaskAction(task)"></button>
     <span class="task-name">{{ task.title }}</span>
